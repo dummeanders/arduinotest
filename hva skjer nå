@@ -1,0 +1,50 @@
+// set pin numbers
+const int touchPin1 = T0; 
+const int ledPin1 = 18;
+const int touchPin2 = 12; 
+const int ledPin2 = 19;
+
+// change with your threshold value
+const int threshold = 20;
+// variable for storing the touch pin value 
+int touchValue1;
+int touchValue2;
+
+void setup(){
+  Serial.begin(115200);
+  delay(1000); // give me time to bring up serial monitor
+  // initialize the LED pin as an output:
+  pinMode (ledPin1, OUTPUT);
+  pinMode (ledPin2, OUTPUT);
+}
+
+void loop(){
+  // read the state of the pushbutton value:
+  touchValue1 = touchRead(touchPin1);
+  touchValue2 = touchRead(touchPin2);
+  Serial.print("måler 1  "+touchValue1);
+  // check if the touchValue is below the threshold
+  // if it is, set ledPin to HIGH
+  if(touchValue1 < threshold){
+    // turn LED on
+    digitalWrite(ledPin1, HIGH);
+    Serial.print(" - LED on     ");
+  }
+  else{
+    // turn LED off
+    digitalWrite(ledPin1, LOW);
+    Serial.print(" - LED off    ");
+  }
+  Serial.print("måler 2  "+touchValue2);
+  if(touchValue2 < threshold){
+    // turn LED on
+    digitalWrite(ledPin2, HIGH);
+    Serial.println(" - LED on");
+  }
+  else{
+    // turn LED off
+    digitalWrite(ledPin2, LOW);
+    Serial.println(" - LED off");
+  }
+  delay(100);
+}
